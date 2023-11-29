@@ -35,11 +35,19 @@ CREATE TABLE IF NOT EXISTS patienteInfo (
     );
 
 CREATE TABLE IF NOT EXISTS interactions (
-                        id SERIAL PRIMARY KEY,
-                        patienteInfo_id INT REFERENCES patienteInfo(id),
+                                            id SERIAL PRIMARY KEY,
+                                            patienteInfo_id INT REFERENCES patienteInfo(id),
     user_mensaje VARCHAR(200) NOT NULL,
     asisstant_response VARCHAR(200) NOT NULL,
     date_time_interactions TIMESTAMP NOT NULL,
     request VARCHAR(255),
     rfid_tags_id INT REFERENCES rfid_tags(id)
+    );
+
+CREATE TABLE IF NOT EXISTS rfid_tags (
+                                         id SERIAL PRIMARY KEY,
+                                         interactions_id INT REFERENCES interactions(id),
+    users_id INT REFERENCES users(id),
+    read_date TIMESTAMP NOT NULL,
+    location VARCHAR(200) NOT NULL
     );
